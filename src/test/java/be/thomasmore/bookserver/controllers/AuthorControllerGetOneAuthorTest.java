@@ -10,27 +10,27 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TES
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql("/sql/books/create_2_books.sql")
-@Sql(scripts = "/sql/books/clean_books.sql", executionPhase = AFTER_TEST_METHOD)
-public class BookControllerGetOneBookTest extends AbstractIntegrationTest {
+@Sql("/sql/authors/create_2_authors.sql")
+@Sql(scripts = "/sql/authors/clean_authors.sql", executionPhase = AFTER_TEST_METHOD)
+public class AuthorControllerGetOneAuthorTest extends AbstractIntegrationTest {
 
     @Test
     public void getOneBook() throws Exception {
-        mockMvc.perform(getMockRequestGet("/api/books/1"))
+        mockMvc.perform(getMockRequestGet("/api/authors/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.title").value("Test Automation"))
-                .andExpect(jsonPath("$.authors").exists())
-                .andExpect(jsonPath("$.authors").isEmpty());
+                .andExpect(jsonPath("$.name").value("Thomas Mann"))
+                .andExpect(jsonPath("$.books").exists())
+                .andExpect(jsonPath("$.books").isEmpty());
     }
 
     @Test
     public void getOneBookNotFound() throws Exception {
         final MvcResult mvcResult =
-                mockMvc.perform(getMockRequestGet("/api/books/9999"))
+                mockMvc.perform(getMockRequestGet("/api/authors/9999"))
                         .andExpect(status().isInternalServerError()) // strange!!! I expected isNotFound().....??????
                         .andReturn();
-        assertThat(mvcResult.getResponse().getErrorMessage()).isEqualTo("Book with id 9999 does not exist.");
+        assertThat(mvcResult.getResponse().getErrorMessage()).isEqualTo("Author with id 9999 does not exist.");
 
     }
 

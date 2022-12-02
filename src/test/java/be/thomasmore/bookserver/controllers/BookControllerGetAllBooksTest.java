@@ -9,14 +9,13 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TES
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SuppressWarnings("SpringTestingSqlInspection")
 @Sql("/sql/books/create_2_books.sql")
 @Sql(scripts = "/sql/books/clean_books.sql", executionPhase = AFTER_TEST_METHOD)
 public class BookControllerGetAllBooksTest extends AbstractIntegrationTest {
 
     @Test
     public void getAllBooks() throws Exception {
-        mockMvc.perform(getMockRequestGetBooks("/api/books"))
+        mockMvc.perform(getMockRequestGet("/api/books"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id").value(1))
@@ -31,7 +30,7 @@ public class BookControllerGetAllBooksTest extends AbstractIntegrationTest {
 
     @Test
     public void getAllBooksFilter() throws Exception {
-        mockMvc.perform(getMockRequestGetBooks("/api/books?titleKeyWord=from Scratch"))
+        mockMvc.perform(getMockRequestGet("/api/books?titleKeyWord=from Scratch"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].title").value("REST API Automation Testing from Scratch"));
@@ -39,7 +38,7 @@ public class BookControllerGetAllBooksTest extends AbstractIntegrationTest {
 
     @Test
     public void getAllBooksFilterCaseInsensitive() throws Exception {
-        mockMvc.perform(getMockRequestGetBooks("/api/books?titleKeyWord=FROM SCRATCH"))
+        mockMvc.perform(getMockRequestGet("/api/books?titleKeyWord=FROM SCRATCH"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].title").value("REST API Automation Testing from Scratch"));
