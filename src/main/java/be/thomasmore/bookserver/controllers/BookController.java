@@ -26,7 +26,7 @@ public class BookController {
                     "Otherwise all books are returned. </br>" +
                     "</br>" +
                     "The authors Collection contains only id and name. </br>" +
-                    "Use GET api/authors/{id}/authors  to fetch more info about the authors. ")
+                    "Use GET api/authors/{id}  to fetch more info about the authors. ")
     @GetMapping("")
     public Iterable<BookDTO> findAll(@RequestParam(required = false) String titleKeyWord) {
         log.info("##### findAll books - titleKeyWord=" + titleKeyWord);
@@ -34,7 +34,7 @@ public class BookController {
     }
 
     @Operation(summary = "get 1 book from the database.",
-            description = "Book with id is fetched from database - returns detailed ino. " +
+            description = "Book with id is fetched from database - returns detailed info. " +
                     "</br>" +
                     "The authors Collection contains only id and name. </br>" +
                     "Use GET api/authors/{id} to fetch more info about the authors. ")
