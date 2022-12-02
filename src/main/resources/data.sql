@@ -36,3 +36,5 @@ INSERT INTO BOOKSUSER (USERNAME, PASSWORD, ROLE)
 VALUES ('vera', '$2y$12$KF3spKP4kgf59.6zYkmjyeYaW2.4ZxV16Grpw1FPsFnzYq68kswJ6', 'USER'); -- vera
 
 
+insert into SERIE(NAME) values ('Harry Potter');
+insert into SERIE(NAME) values ('Anderland');

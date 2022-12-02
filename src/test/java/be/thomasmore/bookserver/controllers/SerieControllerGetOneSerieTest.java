@@ -10,27 +10,25 @@ import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TES
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Sql("/sql/authors/create_2_authors.sql")
-@Sql(scripts = "/sql/authors/clean_authors.sql", executionPhase = AFTER_TEST_METHOD)
-public class AuthorControllerGetOneAuthorTest extends AbstractIntegrationTest {
+@Sql("/sql/series/create_2_series.sql")
+@Sql(scripts = "/sql/series/clean_series.sql", executionPhase = AFTER_TEST_METHOD)
+public class SerieControllerGetOneSerieTest extends AbstractIntegrationTest {
 
     @Test
-    public void getOneAuthor() throws Exception {
-        mockMvc.perform(getMockRequestGet("/api/authors/1"))
+    public void getOneSerie() throws Exception {
+        mockMvc.perform(getMockRequestGet("/api/series/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
-                .andExpect(jsonPath("$.name").value("Thomas Mann"))
-                .andExpect(jsonPath("$.books").exists())
-                .andExpect(jsonPath("$.books").isEmpty());
+                .andExpect(jsonPath("$.name").value("Programming in C"));
     }
 
     @Test
-    public void getOneAuthorNotFound() throws Exception {
+    public void getOneSerieNotFound() throws Exception {
         final MvcResult mvcResult =
-                mockMvc.perform(getMockRequestGet("/api/authors/9999"))
+                mockMvc.perform(getMockRequestGet("/api/series/9999"))
                         .andExpect(status().isInternalServerError())
                         .andReturn();
-        assertThat(mvcResult.getResponse().getErrorMessage()).isEqualTo("Author with id 9999 does not exist.");
+        assertThat(mvcResult.getResponse().getErrorMessage()).isEqualTo("Serie with id 9999 does not exist.");
 
     }
 
