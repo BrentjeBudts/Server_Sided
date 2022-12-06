@@ -17,9 +17,4 @@ public class Serie {
     private int id;
 
     private String name;
-
-    public Serie(int id) {
-        this.id = id;
-    }
-
 }
