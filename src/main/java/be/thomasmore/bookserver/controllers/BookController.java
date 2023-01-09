@@ -26,7 +26,7 @@ public class BookController {
                     "Otherwise all books are returned. </br>" +
                     "</br>" +
                     "The authors Collection contains only id and name. </br>" +
-                    "Use GET api/authors/{id}  to fetch more info about the authors. ")
+                    "Use GET api/authors/{id}/authors  to fetch more info about the authors. ")
     @GetMapping("")
     public Iterable<BookDTO> findAll(@RequestParam(required = false) String titleKeyWord) {
         log.info("##### findAll books - titleKeyWord=" + titleKeyWord);
@@ -34,7 +34,7 @@ public class BookController {
     }
 
     @Operation(summary = "get 1 book from the database.",
-            description = "Book with id is fetched from database - returns detailed info. " +
+            description = "Book with id is fetched from database - returns detailed ino. " +
                     "</br>" +
                     "The authors Collection contains only id and name. </br>" +
                     "Use GET api/authors/{id} to fetch more info about the authors. ")
@@ -47,6 +47,7 @@ public class BookController {
     @Operation(summary = "create a new book in the database.",
             description = "The authors are <b>not</b> updated in the new book.</br>" +
                     "Use PUT api/books/{id}/authors to update those. </br>" +
+                    "The title of the new book must be unique (case insensitive). </br>" +
                     "</br>" +
                     "Returns new book (containing id from database). ")
     @PostMapping("")
@@ -58,6 +59,7 @@ public class BookController {
     @Operation(summary = "edit existing book in the database.",
             description = "The authors are <b>not</b> updated in the new book.</br>" +
                     "Use PUT api/books/{id}/authors to update those. </br>" +
+                    "The new title of the book must be unique (case insensitive). </br>" +
                     "</br>" +
                     "Returns updated book. ")
     @PutMapping("{id}")

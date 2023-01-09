@@ -20,4 +20,22 @@ public class AuthorDetailedDTOConverter {
         return modelMapper.map(author, AuthorDetailedDTO.class);
     }
 
+    /**
+     * @param authorDto the data from client that has to be converted
+     * @param author:   the original author entity (from db) - this object will be overwritten with the data from authorDto
+     * @return the modified author entity object - ready to save in the database
+     */
+    public Author convertToEntity(AuthorDetailedDTO authorDto, Author author) {
+        modelMapper.map(authorDto, author);
+        return author;
+    }
+
+    /**
+     * @param authorDto the data from client that has to be converted
+     * @return the modified author entity object - ready to save in the database
+     */
+    public Author convertToEntity(AuthorDetailedDTO authorDto) {
+        return modelMapper.map(authorDto, Author.class);
+    }
+
 }

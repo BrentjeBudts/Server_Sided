@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -18,7 +20,13 @@ public class Author {
     @Id
     private int id;
 
+    @NotBlank(message = "Author name should not be blank")
+    @NotNull
     private String name;
+
+    private String country;
+    @Column(length=1024)
+    private String description;
 
     @ManyToMany(mappedBy = "authors", fetch = FetchType.LAZY)
     private Set<Book> books;
